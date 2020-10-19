@@ -63,8 +63,6 @@ package cn.hellochaos.generator.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.hellochaos.generator.entity.dto.ResultBean;
-import cn.hellochaos.generator.service.UserService;
-import cn.hellochaos.generator.entity.User;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -133,8 +131,6 @@ public class UserController {
 ```java
 package cn.hellochaos.generator.service;
 
-import cn.hellochaos.generator.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
@@ -207,9 +203,6 @@ public interface UserService {
 ```java
 package cn.hellochaos.generator.service.impl;
 
-import cn.hellochaos.generator.entity.User;
-import cn.hellochaos.generator.mapper.UserMapper;
-import cn.hellochaos.generator.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;

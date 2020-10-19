@@ -1,5 +1,8 @@
 package cn.hellochaos.generator;
 
+import cn.hellochaos.generator.common.controller.BaseController;
+import cn.hellochaos.generator.common.domain.BaseEntity;
+import cn.hellochaos.generator.common.service.BaseService;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -22,7 +25,7 @@ public class CodeGenerator {
     /**
      * 配置文件名
      */
-    private final static String APP_PROPERTY = "application.properties";
+    private final static String APP_PROPERTY = "application-dev.yml";
     private String projectPath = System.getProperty("user.dir");
     /**
      * 公共包路径
@@ -83,7 +86,7 @@ public class CodeGenerator {
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(true);
         gc.setFileOverride(true);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+//        gc.setSwagger2(true);  // 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -111,7 +114,7 @@ public class CodeGenerator {
         templateConfig.setXml(null);
         templateConfig.setService(serviceTemplate);
         templateConfig.setServiceImpl(serviceImplTemplate);
-        templateConfig.setMapper(mapperTemplate);
+//        templateConfig.setMapper(mapperTemplate);
         templateConfig.setController(controllerTemplate);
         mpg.setTemplate(templateConfig);
 
@@ -129,6 +132,10 @@ public class CodeGenerator {
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix("t_");
+//        strategy.setSuperEntityClass(BaseEntity.class);
+        strategy.setSuperServiceClass(BaseService.class);
+        strategy.setSuperControllerClass(BaseController.class);
         mpg.setStrategy(strategy);
 
 
@@ -140,20 +147,26 @@ public class CodeGenerator {
     private static DataSourceConfig dataSourceConfig() {
         DataSourceConfig dsc = new DataSourceConfig();
 
-        String resourcePath = System.getProperty("user.dir") + "/src/main/resources/" + APP_PROPERTY;
-        try {
-            InputStream inStream = new FileInputStream(new File(resourcePath));
-            Properties prop = new Properties();
-            prop.load(inStream);
-
-            dsc.setUrl(prop.getProperty("spring.datasource.url"));
-            dsc.setDriverName(prop.getProperty("spring.datasource.driver-class-name"));
-            dsc.setUsername(prop.getProperty("spring.datasource.username"));
-            dsc.setPassword(prop.getProperty("spring.datasource.password"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String resourcePath = System.getProperty("user.dir") + "/src/main/resources/" + APP_PROPERTY;
+//        try {
+//            InputStream inStream = new FileInputStream(new File(resourcePath));
+//            Properties prop = new Properties();
+//            prop.load(inStream);
+//
+//            dsc.setUrl(prop.getProperty("spring.datasource.url"));
+//            dsc.setDriverName(prop.getProperty("spring.datasource.driver-class-name"));
+//            dsc.setUsername(prop.getProperty("spring.datasource.username"));
+//            dsc.setPassword(prop.getProperty("spring.datasource.password"));
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        // 数据源配置
+        dsc.setUrl("jdbc:mysql://www.doublez.cloud:3306/alumni-converge-dev?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        // dsc.setSchemaName("public");
+        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUsername("root");
+        dsc.setPassword("123456");
 
         return dsc;
     }

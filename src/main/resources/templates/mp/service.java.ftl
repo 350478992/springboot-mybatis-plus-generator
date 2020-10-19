@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 <#if kotlin>
     interface ${table.serviceName} : ${superServiceClass}<${entity}>
 <#else>
-public interface ${table.serviceName} {
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
     /**
     * 分页查询${entity}
